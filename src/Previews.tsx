@@ -26,7 +26,7 @@ export default function Previews({connections, setCurrentPerson}:props){
                 connections.filter((person:person)=>{
                     return person.name.toLowerCase().includes(searchText.toLowerCase())
                 }).map((person:person)=>{
-                    return <li key={person.id} onClick={()=>setCurrentPerson(person)}> <ChatPreview person={person}/>  </li>
+                    return <li key={person.id} onClick={()=>setCurrentPerson(person)}> <ChatPreview key={person.id} person={person}/>  </li>
                 })
             }
             </ul>

@@ -90,7 +90,7 @@ export const CONNECTIONS = [
       "https://fastly.picsum.photos/id/297/200/300.jpg?hmac=SF0Y51mRP7i6CoLBIuliqQwDIUJNyf63_r3xhamVSLE",
   },
   {
-    id: "user_id_5",
+    id: "user_id_6",
     name: "User 6",
     profileImg:
       "https://fastly.picsum.photos/id/297/200/300.jpg?hmac=SF0Y51mRP7i6CoLBIuliqQwDIUJNyf63_r3xhamVSLE",

@@ -1,5 +1,6 @@
 import Message from "./Message"
 // import { useRef } from "react"
+
 interface Person{
     id:string|number,
     name:string,
@@ -53,16 +54,10 @@ export default function AllMessage({connections, personId, setConnections}:props
                 person.messages!.map((msg,index)=>{
                     let dateToShow=showMessagesDate(person.messages![person.messages!.length-1-index].time);
                   return   (
-                    <>
-                        {
-                         <div className="self-center">
-                             {dateToShow}
-                        </div>
-                        }
                         <Message key={msg.id} message={person.messages![person.messages!.length-1-index]} personId={personId} 
-                            connections={connections} setConnections={setConnections}
+                            connections={connections} setConnections={setConnections} 
+                            dateToShow={dateToShow}
                         />
-                  </>
                   )
                 })
 

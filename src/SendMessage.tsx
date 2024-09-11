@@ -19,7 +19,7 @@ interface props{
 
 export default function SendMessage({connections, personId, setConnections}:props){
     const [text,setText]=useState('')
-    useEffect(()=>{
+    useEffect(()=>{                                                                 //???????
         setText(sessionStorage.getItem(`${personId}-draftMessage`) || "")
     },[personId])
 
