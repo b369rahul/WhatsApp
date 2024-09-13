@@ -1,26 +1,23 @@
 import { CiSearch } from "react-icons/ci";
 
-interface props {
-  searchText: string | undefined;
+interface SearchBarProps {
+  searchText: string;
+  className:string;
   setSearchText: (arg: any) => void;
 }
-export default function SearchBar({ searchText, setSearchText }: props) {
+export default function SearchBar({ className, searchText, setSearchText }: SearchBarProps) {
   return (
-    <form className="w-full h-max p-4">
-      {/* <label for="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label> */}
+    <form className={""+" "+className}>
       <div className="relative">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <CiSearch />
-        </div>
+          <div className="absolute left-0 h-full w-max flex items-center pointer-events-none">
+            <CiSearch className="h-7 w-7 pl-3"/>
+          </div>
         <input
           type="search"
-          id="default-search"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="block w-full h-full p-4 ps-10 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search Mockups, Logos..."
+          className="w-full pl-10 bg-gray-600 h-full py-2 rounded-md border-cyan-950 focus:outline-gray-400 "
+          placeholder="Search ...."
         />
       </div>
     </form>
