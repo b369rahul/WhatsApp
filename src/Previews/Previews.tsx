@@ -44,7 +44,7 @@ export default function Previews({setCurrentPersonId, className, connections, se
         <MyProfile className="sticky top-0 z-10 bg-[#2a2f32] h-20 w-full pr-5 pl-2 border-b-[0.5px]" addNewChat={addNewChat}/>
 
     <div ref={containerRef} className="z-5 overflow-y-auto h-full bg-[#1e2428]">
-        <SearchBar searchText={searchText} setSearchText={setSearchText} className="w-full p-4 bg-[#2a2f32] border-b-[0.5px] border-[#242d32]"/>
+        <SearchBar searchText={searchText} setSearchText={setSearchText} className="w-full p-4 border-b-[0.5px] border-[#242d32]"/>
 
         <ul className="divide-y divide-[#242d32]">
             {filteredConnections.map((person: Person) => (
