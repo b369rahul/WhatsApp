@@ -1,11 +1,12 @@
 import { CiSearch } from "react-icons/ci";
-
+import { memo } from "react";
 interface SearchBarProps {
   searchText: string;
   className:string;
   setSearchText: (arg: any) => void;
 }
-export default function SearchBar({ className, searchText, setSearchText }: SearchBarProps) {
+const SearchBar= memo(({ className, searchText, setSearchText }: SearchBarProps) => {
+
   return (
     <form className={""+" "+className}>
       <div className="relative">
@@ -22,4 +23,6 @@ export default function SearchBar({ className, searchText, setSearchText }: Sear
       </div>
     </form>
   );
-}
+})
+
+export default SearchBar;

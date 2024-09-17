@@ -56,7 +56,6 @@ export function deleteMessagebyId(msgId:string|number, currentPersonId:number|st
     if(!currentPerson){
         throw Error("No such Person Found")
     }
-    
     if(!currentPerson.messages){
         throw Error("No such Message Found")
     }
@@ -67,7 +66,7 @@ export function deleteMessagebyId(msgId:string|number, currentPersonId:number|st
             break;
         }
     }
-    if(!msgToUpdateIndex)throw Error("No such Message Found")
+    if(msgToUpdateIndex===undefined)throw Error("No such Message Found")
 
     currentPerson.messages.splice(msgToUpdateIndex,1)
 
@@ -83,7 +82,7 @@ export function editMessageById(msgId:string|number, currentPersonId:number|stri
     if(!currentPerson){
         throw Error("No such Person Found")
     }
-    
+
     if(!currentPerson.messages){
         throw Error("No such Message Found")
     }
@@ -94,7 +93,7 @@ export function editMessageById(msgId:string|number, currentPersonId:number|stri
             break;
         }
     }
-    if(!msgToUpdateIndex)throw Error("No such Message Found")
+    if(msgToUpdateIndex===undefined)throw Error("No such Message Found")
     
     currentPerson.messages[msgToUpdateIndex]={
         ...currentPerson.messages[msgToUpdateIndex],

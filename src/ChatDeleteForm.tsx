@@ -4,14 +4,17 @@ interface ChatDeleteFormProps {
 }
 
 export default function ChatDeleteForm({ setIsDeleteChatVisible, deleteChat }: ChatDeleteFormProps) {
-    const handleClose = () => {
+    const handleClose = (e:any) => {
+        e.preventDefault()
+        e.stopPropagation()
         setIsDeleteChatVisible(false);
     }
 
     function handleOnSubmit(e: any) {
-        e.preventDefault();
-        deleteChat();
+        e.preventDefault()
+        e.stopPropagation()
         setIsDeleteChatVisible(false);
+        deleteChat();
     }
 
     return (
@@ -31,6 +34,7 @@ export default function ChatDeleteForm({ setIsDeleteChatVisible, deleteChat }: C
                 </button>
                 <button
                     type="submit"
+                    onClick={(e)=>e.stopPropagation()}
                     className="w-1/2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:ring-2 focus:ring-red-400">
                     Delete
                 </button>

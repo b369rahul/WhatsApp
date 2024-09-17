@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Message from "./Message"
 
 interface AllMessageProps{
@@ -19,7 +19,7 @@ export default function AllMessage({currentPersonId, connections, setConnections
         const messages = connections[currentPersonId].messages || [];
 
         return Array.from(messages.values());
-    },[connections[currentPersonId].messages.length])
+    },[connections])
 
     // let prevMessageDate=getDateWithoutTime(messages[messages.size-1].time);
     // let firstMessageDate= getDateWithoutTime(messages[0].time)

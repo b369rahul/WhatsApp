@@ -29,6 +29,8 @@ export default function Message({ message, currentPersonId, setConnections, isLa
 
     function editMessage(msgId:string|number, text:string){
         const updatedConnections = editMessageById(msgId,currentPersonId,text);
+
+        console.log(updatedConnections)
         setConnections({...updatedConnections});
     }
     

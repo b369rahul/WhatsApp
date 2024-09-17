@@ -18,7 +18,6 @@ export default function Previews({setCurrentPersonId, className, connections, se
     const containerRef = useRef<HTMLDivElement | null>(null)
 
 
-
     const setCurrentPersonIdHandler = useCallback((id:number|string)=>{
         setCurrentPersonId(id)
     },[])
@@ -28,10 +27,10 @@ export default function Previews({setCurrentPersonId, className, connections, se
         setConnections({...newConnections})
     },[])
 
-    const addNewChat = (name:string, profileImg?:string)=>{
+    const addNewChat = useCallback((name:string, profileImg?:string)=>{
         const newConnections = addNewConnection(name, profileImg);
         setConnections({...newConnections})
-    }
+    },[])
 
     const filteredConnections = useMemo(()=>{
         return Object.values(connections).filter((person:Person)=>{
@@ -40,29 +39,27 @@ export default function Previews({setCurrentPersonId, className, connections, se
     },[searchText,connections])
 
     return (
-        <div className={"relative flex flex-col"+ " "+className}>
+        <div className={"relative flex flex-col " + className} style={{boxShadow: "0 0 2px 0"}}>
+        <MyProfile className="sticky top-0 z-10 bg-[#2a2f32] h-20 w-full pr-5 pl-2 border-b-[0.5px]" addNewChat={addNewChat}/>
 
-            <MyProfile className="sticky top-0 z-10 bg-[#2a2f32] h-20 w-full pr-5 pl-2 border-b-[0.5px] " addNewChat={addNewChat}/>
+    <div ref={containerRef} className="z-5 overflow-y-auto h-full bg-[#1e2428]">
+        <SearchBar searchText={searchText} setSearchText={setSearchText} className="w-full p-4 bg-[#2a2f32] border-b-[0.5px] border-[#242d32]"/>
 
-            <div ref={containerRef} className="z-5 overflow-scroll h-full mt-auto bg-[#1e2428]">
+        <ul className="divide-y divide-[#242d32]">
+            {filteredConnections.map((person: Person) => (
+                <ChatPreview 
+                    key={person.id} 
+                    currentPersonId={person.id}
+                    setCurrentPersonIdHandler={setCurrentPersonIdHandler}
+                    deleteCurrentPersonHandler={deleteCurrentPersonHandler}
+                    lastMessage={person.messages[person.messages.length-1]?.text}
+                    className="hover:bg-[#303b42] transition-colors duration-200 w-full" 
+                    containerRef={containerRef}
+                />
+            ))}
+        </ul>
+    </div>
+</div>
 
-                <SearchBar searchText={searchText} setSearchText={setSearchText} className="w-full p-4 pb-8"/>
-
-                <ul >
-                {
-                    filteredConnections.map((person:Person)=>{
-                        return <ChatPreview key={person.id} 
-                                            currentPersonId={person.id}
-                                            setCurrentPersonIdHandler={setCurrentPersonIdHandler}
-                                            deleteCurrentPersonHandler={deleteCurrentPersonHandler}
-                                            lastMessage = {person.messages[person.messages.length-1]?.text}
-                                            className="w-full border-b-[0.5px] p-2  h-24"
-                                            containerRef={containerRef}
-                                            /> 
-                    })
-                }
-                </ul>
-            </div>
-        </div>
     );
 }

@@ -1,13 +1,15 @@
 import {getPersonById} from "./functions"
+import { memo } from "react"
 
 interface ChatProfileProps{
     className:string,
     currentPersonId:string|number,
 }
 
-export default function ChatProfile ({className=" ", currentPersonId}:ChatProfileProps){
-    const currentPerson : Person = getPersonById(currentPersonId)
+const ChatProfile = memo( ({className=" ", currentPersonId}:ChatProfileProps) =>{
 
+    const currentPerson : Person = getPersonById(currentPersonId)
+    console.log("chatprof")
     return (
         <div className={`flex justify-between items-center flex-row grow-0 shrink-0 ${className}`}>
             <div className="flex items-center max-w-fit ">
@@ -16,4 +18,6 @@ export default function ChatProfile ({className=" ", currentPersonId}:ChatProfil
             </div>
         </div>
     );
-}
+})
+
+export default ChatProfile;
