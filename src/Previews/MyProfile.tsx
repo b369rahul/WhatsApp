@@ -3,8 +3,8 @@ import { memo } from "react";
 const srcUrl="https://fastly.picsum.photos/id/297/200/300.jpg?hmac=SF0Y51mRP7i6CoLBIuliqQwDIUJNyf63_r3xhamVSLE";
 import { useState } from "react";
 import { IoIosPersonAdd } from "react-icons/io";
-import AddNewChatForm from "./AddNewChatForm";
-import PopUpForm from "./PopUpForm";
+import AddNewChatForm from "../Popups/AddNewChatForm";
+import PopUpForm from "../Popups/PopUpForm";
 
 interface MyProfileProps{
     className:string,

@@ -2,7 +2,7 @@ import SearchBar from "./SearchBar";
 import MyProfile from "./MyProfile"
 import ChatPreview from "./ChatPreview"
 import { useCallback, useMemo, useState , useRef} from "react";
-import {addNewConnection, deleteConversationById} from "./functions"
+import {addNewConnection, deleteConversationById} from "../functions"
 
 
 interface PreviewsProps{
@@ -28,8 +28,9 @@ export default function Previews({setCurrentPersonId, className, connections, se
     },[])
 
     const addNewChat = useCallback((name:string, profileImg?:string)=>{
-        const newConnections = addNewConnection(name, profileImg);
+        const {newConnections, id} = addNewConnection(name, profileImg);
         setConnections({...newConnections})
+        setCurrentPersonId(id)
     },[])
 
     const filteredConnections = useMemo(()=>{

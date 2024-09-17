@@ -1,4 +1,4 @@
-import SendMessage from "./SendMessage";
+import SendMessage from "../Previews/SendMessage";
 import AllMessage from "./AllMessage";
 import ChatProfile from "./ChatProfile";
 

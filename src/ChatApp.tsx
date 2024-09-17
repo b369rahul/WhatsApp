@@ -1,5 +1,5 @@
-import Previews from './Previews';
-import Conversation from './Conversation';
+import Previews from './Previews/Previews';
+import Conversation from './Conversation/Conversation';
 import { useState} from 'react';
 import {getConnections} from "./functions"
 

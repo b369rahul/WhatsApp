@@ -1,4 +1,4 @@
-import {getPersonById} from "./functions"
+import {getPersonById} from "../functions"
 import { memo } from "react"
 
 interface ChatProfileProps{
@@ -9,7 +9,6 @@ interface ChatProfileProps{
 const ChatProfile = memo( ({className=" ", currentPersonId}:ChatProfileProps) =>{
 
     const currentPerson : Person = getPersonById(currentPersonId)
-    console.log("chatprof")
     return (
         <div className={`flex justify-between items-center flex-row grow-0 shrink-0 ${className}`}>
             <div className="flex items-center max-w-fit ">

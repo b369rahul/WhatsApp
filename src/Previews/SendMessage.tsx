@@ -1,7 +1,7 @@
 import { RiAttachment2 } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
 import { useState } from "react";
-import { sendMessageById } from "./functions";
+import { sendMessageById } from "../functions";
 
 interface SendMessageProps{
     currentPersonId:string|number,

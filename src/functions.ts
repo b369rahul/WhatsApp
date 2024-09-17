@@ -46,7 +46,10 @@ export function addNewConnection(name:string, profileImg?:string){
     const connections = getConnections();
     connections[newConnection.id] = newConnection;
     localStorage.setItem("connections",JSON.stringify({...connections}))
-    return connections;
+    return {
+        newConnections:connections,
+        id:newConnection.id
+    }
 }
 
 

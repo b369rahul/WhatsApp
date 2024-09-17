@@ -1,11 +1,11 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { MdOutlineDeleteSweep } from "react-icons/md";
-import PopUpForm from "./PopUpForm";
-import ChatDeleteForm from "./ChatDeleteForm";
+import PopUpForm from "../Popups/PopUpForm";
+import ChatDeleteForm from "../Popups/ChatDeleteForm";
 import "./ChatPreview.css"
 
 
-import {getPersonById} from "./functions"
+import {getPersonById} from "../functions"
 interface ChatPreviewProps{
     className:string,
     currentPersonId:number|string,
@@ -48,7 +48,7 @@ const ChatPreview = memo(({className, currentPersonId, setCurrentPersonIdHandler
                 window.removeEventListener("resize", updatePosition);
             };
         }
-    },[containerRef])
+    },[])
 
     return (
     <li  className={"flex items-center justify-between flex-row hover:cursor-pointer px-2 "+ " " + className} onClick={()=>setCurrentPersonIdHandler(currentPerson.id)}>

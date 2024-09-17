@@ -2,10 +2,10 @@ import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import "./Message.css"
-import {deleteMessagebyId, editMessageById} from "./functions"
-import PopUpForm from "./PopUpForm";
-import MessageDeleteForm from "./MessageDeleteForm";
-import MessageEditForm from "./MessageEditForm"
+import {deleteMessagebyId, editMessageById} from "../functions"
+import PopUpForm from "../Popups/PopUpForm";
+import MessageDeleteForm from "../Popups/MessageDeleteForm";
+import MessageEditForm from "../Popups/MessageEditForm"
 
 interface MessageProps {
     message: Message,
