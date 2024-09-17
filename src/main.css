@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-.message:hover .deleteMessage{
-    display: block;
-}
-
 *{
     box-sizing: border-box;
     border-collapse: collapse;

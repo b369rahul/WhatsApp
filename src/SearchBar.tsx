@@ -16,7 +16,7 @@ export default function SearchBar({ className, searchText, setSearchText }: Sear
           type="search"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="w-full pl-10 bg-gray-600 h-full py-2 rounded-md border-cyan-950 focus:outline-gray-400 "
+          className="w-full pl-10 bg-gray-600 h-full p-2 rounded-md border-cyan-950 focus:outline-gray-400 "
           placeholder="Search ...."
         />
       </div>

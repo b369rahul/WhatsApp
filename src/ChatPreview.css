@@ -1,0 +1,14 @@
+.previewLastMessage:hover + .previewLastMessageToolTip{
+    visibility: visible;
+}
+
+/* .previewLastMessageToolTip::before{
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  margin-left: -5px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: rgb(59 130 246) transparent transparent transparent;
+} */

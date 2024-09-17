@@ -1,52 +1,73 @@
-import { TiDelete } from "react-icons/ti";
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
+import "./Message.css"
+import {deleteMessagebyId, editMessageById} from "./functions"
+import PopUpForm from "./PopUpForm";
+import MessageDeleteForm from "./MessageDeleteForm";
+import MessageEditForm from "./MessageEditForm"
 
-interface Person {
-    id: string | number,
-    name: string,
-    profileImg: string,
-    messages?: any[]
+interface MessageProps {
+    message: Message,
+    currentPersonId: string | number,
+    setConnections:(arg:Connections)=>void,
+    isLastMessage:boolean
 }
 
-interface Props {
-    message: {
-        id: string | number,
-        text: string | number,
-        time: string | number,
-    },
-    setConnections: (arg: any) => void,
-    personId: string | number,
-    connections: Person[],
-    dateToShow:null|string
-}
 
-export default function Message({ message, personId, connections, setConnections ,dateToShow}: Props) {
+export default function Message({ message, currentPersonId, setConnections, isLastMessage}: MessageProps) {
+    const ref= useRef<HTMLDivElement>(null)
 
-    function deleteMessage(msgId: any) {
-        const personToUpdateIndex = connections.findIndex((person) => person.id == personId);
-        const updatedPerson = { ...connections[personToUpdateIndex] };
-        const updatedConnections: Person[] = connections.map((person: Person) => {
-            return { ...person };
-        });
+    const[isEditMessageVisible, setIsEditMessageVisible] = useState(false)
+    const[isDeleteMessageVisible, setIsDeleteMessageVisible] = useState(false)
 
-        const indexToDelete = updatedPerson.messages!.findIndex((msg: any) => msg.id == msgId);
-        updatedPerson.messages!.splice(indexToDelete, 1);
+    function deleteMessage(msgId: string|number) {
 
-        updatedConnections[personToUpdateIndex] = updatedPerson;
-        setConnections(updatedConnections);
+        const updatedConnections = deleteMessagebyId(msgId, currentPersonId)
+        setConnections({...updatedConnections});
     }
 
+    function editMessage(msgId:string|number, text:string){
+        const updatedConnections = editMessageById(msgId,currentPersonId,text);
+        setConnections({...updatedConnections});
+    }
+    
+    useEffect(()=>{
+        if(isLastMessage && ref.current){
+            ref.current.scrollIntoView({
+                behavior: 'smooth'
+              });
+        }
+    },[isLastMessage])
+
     return (
-            <>
-                { dateToShow && <div className="self-center">
-                        {dateToShow}
-                </div>}
-                <div key={message.id} className="bg-[#2e7d76] relative border-2 rounded-lg flex flex-col pl-2 pr-1 py-1 m-2 mr-2.5 min-w-16 max-w-fit message">
-                    <button className="z-10 absolute -top-2.5 -right-0 hidden deleteMessage size-2" onClick={() => deleteMessage(message.id)}>
-                        <TiDelete className="bg-gray-100 text-black rounded-lg" />
-                    </button>
-                    <p className="mb-4">{message.text}</p>
-                    <p className="absolute bottom-0.5 right-0.5 text-xs">{new Date(message.time).toLocaleTimeString().slice(0, -3)}</p>
+            <div ref={ref}>
+                {isEditMessageVisible?
+                 <PopUpForm>
+                    <MessageEditForm setIsEditMessageVisible={setIsEditMessageVisible} lastMessage={message.text} editMessage={(text:string)=>editMessage(message.id,text)}/>
+                 </PopUpForm> :null
+                }
+
+                {isDeleteMessageVisible?
+                 <PopUpForm>
+                    <MessageDeleteForm setIsDeleteMessageVisible={setIsDeleteMessageVisible} deleteMessage={()=>deleteMessage(message.id)}/>
+                 </PopUpForm> :null
+                }
+
+                <div key={message.id} className="flex message h-fit pl-2  mb-4 mr-2.5">
+                    <div className="hidden updateMessage  space-x-1 h-fit flex-row items-center justify-center ">
+                        <button className=" " onClick={() => setIsDeleteMessageVisible(true)}>
+                            <MdDelete className=" text-white rounded-lg h-4 w-4" />
+                        </button>
+                        <button className="" onClick={() => setIsEditMessageVisible(true)}>
+                            <MdEdit className=" text-white rounded-lg h-4 w-4 " />
+                        </button>
+                    </div>
+                    <div className="bg-[#2e7d76] relative border-2 rounded-lg flex flex-col pr-1 py-1 pl-2 min-w-16 max-w-80 text-wrap w-full break-words">
+                        <p className="mb-4">{message.text}</p>
+                        <p className="absolute bottom-0.5 right-0.5 text-xs">{new Date(message.time).toLocaleTimeString().slice(0, -3)}</p>
+                    </div>
                 </div>
-            </>
+            </div>
     );
 }

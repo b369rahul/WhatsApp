@@ -1,28 +1,24 @@
-import ChatPreview from "./ChatPreview";
 import SendMessage from "./SendMessage";
 import AllMessage from "./AllMessage";
+import ChatProfile from "./ChatProfile";
 
-interface Person{
-    id:string|number,
-    name:string,
-    profileImg:string,
-    messages?:any[]
+interface ConversationProps{
+    currentPersonId:string |number ,
+    className:string,
+    connections:Connections;
+    setConnections:(arg:Connections)=>void
 }
 
-interface props{
-    connections:Person[],
-    personId:string|number,
-    setConnections:(arg:any)=>void
-}
+export default function Conversation({currentPersonId, connections,setConnections,className=" "}:ConversationProps){
 
-export default function Conversation({connections, personId, setConnections}:props){
-    const person = connections.find((person)=>person.id==personId)
-    
     return (
-    <div className="w-3/4 h-full border-[0.5px] relative flex flex-col overflow-hidden justify-between">
-        <ChatPreview className = "bg-[#2a2f32] z-10 grow-0 shrink-0" person={{name:person!.name, profileImg:person!.profileImg}}/>
-        <AllMessage connections={connections} personId={personId} setConnections={setConnections}/>
-        <SendMessage connections={connections} personId={personId} setConnections={setConnections}/>
+
+    <div className={`relative flex flex-col overflow-hidden justify-between ${className}`}>
+        
+        <ChatProfile className = "sticky top-0 z-3 bg-[#2a2f32] h-20 w-full pr-5 pl-2 border-b-[0.5px] " currentPersonId={currentPersonId}/>
+        <AllMessage currentPersonId={currentPersonId} connections={connections} setConnections={setConnections} />
+        <SendMessage currentPersonId={currentPersonId} setConnections={setConnections}/>
+
     </div>
    );
 }
