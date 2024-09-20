@@ -16,7 +16,7 @@ interface AllMessageProps{
 export default function AllMessage({currentPersonId, connections, setConnections}:AllMessageProps){
 
     const memoMessages = useMemo(()=>{
-        const messages = connections[currentPersonId].messages || [];
+        const messages = connections[currentPersonId]?.messages || [];
 
         return Array.from(messages.values());
     },[connections])

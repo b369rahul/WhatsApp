@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useLayoutEffect, useRef, useState } from "react";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import PopUpForm from "../Popups/PopUpForm";
 import ChatDeleteForm from "../Popups/ChatDeleteForm";
@@ -23,10 +23,10 @@ const ChatPreview = memo(({className, currentPersonId, setCurrentPersonIdHandler
     const toolTipRef = useRef<HTMLDivElement | null>(null)
     const currentPerson = getPersonById(currentPersonId)
     const [toolTipPosition, setToolTipPosition]= useState({top:0, left:0})
-    useEffect(()=>{
-        if(toolTipRef && containerRef && chatRef){
+    useLayoutEffect(()=>{
+        if(toolTipRef.current && containerRef?.current && chatRef.current){
             
-
+            
             const updatePosition = ()=>{
                 const elem = chatRef.current!.getBoundingClientRect();
                 const toolTipElem = toolTipRef.current!.getBoundingClientRect();
@@ -48,7 +48,7 @@ const ChatPreview = memo(({className, currentPersonId, setCurrentPersonIdHandler
                 window.removeEventListener("resize", updatePosition);
             };
         }
-    },[])
+    },[lastMessage])
 
     return (
     <li  className={"flex items-center justify-between flex-row hover:cursor-pointer px-2 "+ " " + className} onClick={()=>setCurrentPersonIdHandler(currentPerson.id)}>
@@ -61,11 +61,13 @@ const ChatPreview = memo(({className, currentPersonId, setCurrentPersonIdHandler
                     {lastMessage}
                     </p>
                 </div>
-                <div ref={toolTipRef} className={`z-10 invisible previewLastMessageToolTip fixed bg-[#1e2428] ml-2 rounded-md text-white px-2 py-2 max-w-[40%] w-fit break-words `}
-                         style={{top:toolTipPosition.top, left:toolTipPosition.left}}
-                         >
-                        {lastMessage}
-                </div>
+                {lastMessage!=null && lastMessage?.length > 25 ? 
+                    <div ref={toolTipRef} className={`z-10 invisible previewLastMessageToolTip fixed bg-[#1e2428] ml-2 rounded-md text-white px-2 py-2 max-w-[40%] w-fit break-words `}
+                                                    style={{top:toolTipPosition.top, left:toolTipPosition.left}}>
+                            {lastMessage}
+                    </div> 
+                    :null
+                }
             </div>
         </div>
         {isDeleteChatVisisble?

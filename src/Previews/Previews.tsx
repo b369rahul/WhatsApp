@@ -6,7 +6,7 @@ import {addNewConnection, deleteConversationById} from "../functions"
 
 
 interface PreviewsProps{
-    setCurrentPersonId:(arg:number|string)=>void;
+    setCurrentPersonId:(arg:number|string|null| ((arg:number|string|null)=>number|string|null))=>void;
     className:string;
     connections:Connections;
     setConnections:(arg:Connections)=>void
@@ -25,6 +25,10 @@ export default function Previews({setCurrentPersonId, className, connections, se
     const deleteCurrentPersonHandler = useCallback(( id:number|string)=>{
         const newConnections  = deleteConversationById(id);
         setConnections({...newConnections})
+        setCurrentPersonId((curr_id)=>{
+            if(curr_id===id)return null;
+            else return curr_id;
+        })
     },[])
 
     const addNewChat = useCallback((name:string, profileImg?:string)=>{
