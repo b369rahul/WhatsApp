@@ -1,18 +1,23 @@
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { DispatchMyConversationsist } from "../context";
 interface AddNewChatFormProps {
-    addNewChat: (name: string, profileImg?: string) => void,
     className?: string,
     setIsVisible:(arg:boolean)=>void,
 }
 
-export default function AddNewChatForm({ addNewChat, setIsVisible }: AddNewChatFormProps) {
+export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFormProps) {
     const [name, setName] = useState<string>('');
     const [profileImg, setProfileImg] = useState<string>('');
+    
+    const dispatchMyConversationsist = useContext(DispatchMyConversationsist)
 
     const handleOnSubmit = (e: any) => {
         e.preventDefault();
-        addNewChat(name, profileImg);
+        dispatchMyConversationsist!({
+            type:"add",
+            name:name,
+            profileImg:profileImg
+        })
         setIsVisible(false);  
     }
 
@@ -21,13 +26,7 @@ export default function AddNewChatForm({ addNewChat, setIsVisible }: AddNewChatF
     }
 
     return (
-            <form onSubmit={handleOnSubmit} className="z-10 space-y-4 flex flex-col border-2 border-[#2A3942] w-72 items-center rounded-lg p-4 bg-[#1F2C34] relative">
-                <button 
-                    type="button" 
-                    onClick={handleClose} 
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-200">
-                    &times;
-                </button>
+            <form onSubmit={handleOnSubmit} className={className}>
 
                 <label className="block text-sm font-medium text-[#8696A0]">Name</label>
                 <input
@@ -50,9 +49,20 @@ export default function AddNewChatForm({ addNewChat, setIsVisible }: AddNewChatF
 
                 {profileImg && <img src={profileImg} alt="Profile Preview" className="h-16 w-16 rounded-full mt-2 object-cover border-2 border-[#00A884]" />}
 
-                <button type="submit" className="w-full bg-[#00A884] text-white px-4 py-2  rounded-md hover:bg-[#025E51] focus:ring-2 focus:ring-[#00A884]">
-                    Add Chat
-                </button>
+                <div className="flex justify-between w-full space-x-4">
+                    <button
+                        type="button"
+                        onClick={handleClose}
+                        className="w-1/2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-400">
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        onClick={(e)=>e.stopPropagation()}
+                        className="w-1/2 bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-400">
+                        Add Chat
+                    </button>
+                </div>
             </form>
     );
 }

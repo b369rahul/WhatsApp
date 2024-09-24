@@ -1,44 +1,48 @@
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./Message.css"
-import {deleteMessagebyId, editMessageById} from "../functions"
 import PopUpForm from "../Popups/PopUpForm";
 import MessageDeleteForm from "../Popups/MessageDeleteForm";
 import MessageEditForm from "../Popups/MessageEditForm"
+import { DispatchAllConversations, CurrentConvoIdContext } from "../context";
 
 interface MessageProps {
     message: Message,
-    currentPersonId: string | number,
-    setConnections:(arg:Connections)=>void,
     isLastMessage:boolean
 }
 
 
-export default function Message({ message, currentPersonId, setConnections, isLastMessage}: MessageProps) {
+export default function Message({ message,isLastMessage}: MessageProps) {
     const ref= useRef<HTMLDivElement>(null)
+    const dispatchAllConversations = useContext(DispatchAllConversations)
+    const currentConversationId = useContext(CurrentConvoIdContext)
+
+    if(!currentConversationId)return null;
 
     const[isEditMessageVisible, setIsEditMessageVisible] = useState(false)
     const[isDeleteMessageVisible, setIsDeleteMessageVisible] = useState(false)
 
-    function deleteMessage(msgId: string|number) {
-
-        const updatedConnections = deleteMessagebyId(msgId, currentPersonId)
-        setConnections({...updatedConnections});
+    function deleteMessage() {
+        dispatchAllConversations!({
+            type:"delete_message",
+            conversationId:currentConversationId!,
+            msgId:message.id
+        })
     }
 
-    function editMessage(msgId:string|number, text:string){
-        const updatedConnections = editMessageById(msgId,currentPersonId,text);
-
-        console.log(updatedConnections)
-        setConnections({...updatedConnections});
+    function editMessage(text:string){
+        dispatchAllConversations!({
+            type:"edit_message",
+            conversationId:currentConversationId!,
+            msgId:message.id,
+            msgText:text
+        })
     }
     
     useEffect(()=>{
         if(isLastMessage && ref.current){
-            ref.current.scrollIntoView({
-                behavior: 'smooth'
-              });
+            ref.current.scrollIntoView();
         }
     },[isLastMessage])
 
@@ -46,13 +50,13 @@ export default function Message({ message, currentPersonId, setConnections, isLa
             <div ref={ref}>
                 {isEditMessageVisible?
                  <PopUpForm>
-                    <MessageEditForm setIsEditMessageVisible={setIsEditMessageVisible} lastMessage={message.text} editMessage={(text:string)=>editMessage(message.id,text)}/>
+                    <MessageEditForm setIsEditMessageVisible={setIsEditMessageVisible} lastMessage={message.text} editMessage={(text:string)=>editMessage(text)}/>
                  </PopUpForm> :null
                 }
 
                 {isDeleteMessageVisible?
                  <PopUpForm>
-                    <MessageDeleteForm setIsDeleteMessageVisible={setIsDeleteMessageVisible} deleteMessage={()=>deleteMessage(message.id)}/>
+                    <MessageDeleteForm setIsDeleteMessageVisible={setIsDeleteMessageVisible} deleteMessage={deleteMessage}/>
                  </PopUpForm> :null
                 }
 

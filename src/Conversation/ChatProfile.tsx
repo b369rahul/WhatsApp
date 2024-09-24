@@ -1,14 +1,20 @@
-import {getPersonById} from "../functions"
 import { memo } from "react"
-
+import { CurrentConvoIdContext, MyConversationsList } from "../context"
+import { useContext } from "react"
 interface ChatProfileProps{
     className:string,
-    currentPersonId:string|number,
 }
 
-const ChatProfile = memo( ({className=" ", currentPersonId}:ChatProfileProps) =>{
-
-    const currentPerson : Person = getPersonById(currentPersonId)
+const ChatProfile = memo( ({className=" "}:ChatProfileProps) =>{
+    const currentConvoId = useContext(CurrentConvoIdContext)
+    const myConversationsList = useContext(MyConversationsList)
+    
+    if(!currentConvoId) throw new Error("Cannot find current Conversation ID caht profile")
+    const currentPerson = myConversationsList.find(({conversationId})=>{
+        return conversationId===currentConvoId
+    })?.user
+    
+    if(!currentPerson) throw new Error ("Cannot find current Person in chat profile")
     return (
         <div className={`flex justify-between items-center flex-row grow-0 shrink-0 ${className}`}>
             <div className="flex items-center max-w-fit ">

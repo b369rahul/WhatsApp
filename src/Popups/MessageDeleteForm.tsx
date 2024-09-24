@@ -1,9 +1,10 @@
 interface MessageDeleteFormProps {
     setIsDeleteMessageVisible: (arg: boolean) => void, 
-    deleteMessage: () => void
+    deleteMessage: () => void,
+    className?:"string"
 }
 
-export default function MessageDeleteForm({ setIsDeleteMessageVisible, deleteMessage }: MessageDeleteFormProps) {
+export default function MessageDeleteForm({ setIsDeleteMessageVisible, deleteMessage,className }: MessageDeleteFormProps) {
     const handleClose = () => {
         setIsDeleteMessageVisible(false); 
     }
@@ -15,7 +16,7 @@ export default function MessageDeleteForm({ setIsDeleteMessageVisible, deleteMes
     }
 
     return (
-        <form onSubmit={handleOnSubmit} className="z-10 space-y-6 flex flex-col border-2 border-[#2A3942] w-80 items-center rounded-lg p-6 bg-[#1F2C34] relative shadow-lg">
+        <form onSubmit={handleOnSubmit} className={className}>
 
             <h2 className="text-xl text-white font-semibold">Delete Message</h2>
 

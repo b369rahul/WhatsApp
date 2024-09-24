@@ -1,9 +1,10 @@
 interface ChatDeleteFormProps {
     setIsDeleteChatVisible: (arg: boolean) => void,
-    deleteChat: () => void
+    deleteChat: () => void,
+    className? : string
 }
 
-export default function ChatDeleteForm({ setIsDeleteChatVisible, deleteChat }: ChatDeleteFormProps) {
+export default function ChatDeleteForm({ setIsDeleteChatVisible, deleteChat, className }: ChatDeleteFormProps) {
     const handleClose = (e:any) => {
         e.preventDefault()
         e.stopPropagation()
@@ -18,7 +19,7 @@ export default function ChatDeleteForm({ setIsDeleteChatVisible, deleteChat }: C
     }
 
     return (
-        <form onSubmit={handleOnSubmit} className="z-10 flex flex-col border-2 border-[#2A3942] w-80 items-center rounded-lg p-6 bg-[#1F2C34] relative shadow-lg space-y-6">
+        <form onSubmit={handleOnSubmit} className={className}>
 
             <h2 className="text-xl text-white font-semibold">
                 Are You Sure To Delete This Conversation.

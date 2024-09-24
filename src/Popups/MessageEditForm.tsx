@@ -3,10 +3,11 @@ import { useState } from "react";
 interface MessageEditFormProps {
     setIsEditMessageVisible: (arg: boolean) => void,
     editMessage: (text: string) => void,
-    lastMessage: string
+    lastMessage: string,
+    className?:"string"   
 }
 
-export default function MessageEditForm({ setIsEditMessageVisible, editMessage, lastMessage }: MessageEditFormProps) {
+export default function MessageEditForm({ setIsEditMessageVisible, editMessage, lastMessage, className }: MessageEditFormProps) {
     const [text, setText] = useState(lastMessage);
 
     const handleClose = () => {
@@ -20,7 +21,7 @@ export default function MessageEditForm({ setIsEditMessageVisible, editMessage, 
     }
 
     return (
-        <form onSubmit={handleOnSubmit} className="z-10 space-y-4 flex flex-col border-2 border-[#2A3942] w-80 items-center rounded-lg p-6 bg-[#1F2C34] relative shadow-lg">
+        <form onSubmit={handleOnSubmit} className={className}>
 
             <h2 className="text-xl text-white font-semibold">Edit Message</h2>
 

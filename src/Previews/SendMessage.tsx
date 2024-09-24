@@ -1,28 +1,33 @@
 import { RiAttachment2 } from "react-icons/ri";
 import { IoMdSend } from "react-icons/io";
-import { useState } from "react";
-import { sendMessageById } from "../functions";
+import { useState, useContext } from "react";
+import { DispatchAllConversations, CurrentConvoIdContext } from "../context";
 
 interface SendMessageProps{
-    currentPersonId:string|number,
-    setConnections:(arg:Connections)=>void
 }
 
-export default function SendMessage({currentPersonId, setConnections}:SendMessageProps){
-    const [text,setText]=useState(localStorage.getItem(`${currentPersonId}-draftMessage`) || "");
+export default function SendMessage({}:SendMessageProps){
+    const currentConversationId = useContext(CurrentConvoIdContext)
+    const dispatchAllConversations = useContext(DispatchAllConversations)
+    if(!currentConversationId || !dispatchAllConversations)return null;
+
+    const [text,setText]=useState(localStorage.getItem(`${currentConversationId}-draftMessage`) || "");
 
     function onSubmitHandler(e:React.FormEvent){
         e.preventDefault()
         if(text=='')return;
-        const updatedConnections =sendMessageById(currentPersonId,text)
-        setConnections(updatedConnections)
+        dispatchAllConversations!({
+            type:"add_message",
+            msgText:text,
+            conversationId:currentConversationId!
+        })
         setText('');
-        sessionStorage.setItem(`${currentPersonId}-draftMessage`,'')
+        localStorage.setItem(`${currentConversationId}-draftMessage`,'')
     }
 
     function onChangeHandler(e:React.ChangeEvent<HTMLInputElement>){
         setText(e.target.value);
-        sessionStorage.setItem(`${currentPersonId}-draftMessage`,e.target.value)
+        localStorage.setItem(`${currentConversationId}-draftMessage`,e.target.value)
     }
 
     return (
