@@ -16,7 +16,7 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
     const dispatchMyConversationsList  = useContext(DispatchMyConversationsist)
     const setCurrentConvoId = useContext(DispatchCurrentConvoIdContext)
     const currentConvoId = useContext(CurrentConvoIdContext)
-
+    console.log("sss")
 
     const [isDeleteChatVisisble, setIsDeleteChatVisible] = useState(false)
     const chatRef = useRef<HTMLDivElement | null>(null)
