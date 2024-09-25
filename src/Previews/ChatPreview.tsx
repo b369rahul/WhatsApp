@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect, useRef, useState } from "react";
+import React,{ useContext, useLayoutEffect, useRef, useState } from "react";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import PopUpForm from "../Popups/PopUpForm";
 import ChatDeleteForm from "../Popups/ChatDeleteForm";
@@ -12,12 +12,11 @@ interface ChatPreviewProps{
     conversationId:NonNullable<ConversationId>
 }
 
-
 const ChatPreview = ({className, containerRef, lastMessage, user, conversationId}:ChatPreviewProps)=>{
     const dispatchMyConversationsList  = useContext(DispatchMyConversationsist)
     const setCurrentConvoId = useContext(DispatchCurrentConvoIdContext)
     const currentConvoId = useContext(CurrentConvoIdContext)
-
+    console.log("sss")
 
     const [isDeleteChatVisisble, setIsDeleteChatVisible] = useState(false)
     const chatRef = useRef<HTMLDivElement | null>(null)
@@ -55,23 +54,33 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
                 let left=(elem.right +2 )
                 setToolTipPosition({top:top, left:left})
             }
-            updatePosition()
 
+            let timeOutId:number | undefined;
             const handleMouseOver = ()=>{
-                toolTipRef.current!.style.visibility = "visible"
+                timeOutId = setTimeout(()=>{
+                    updatePosition()
+                    toolTipRef.current!.style.visibility = "visible"
+                },2000)
             }
             const handleMouseLeave = ()=>{
+                clearTimeout(timeOutId)
                 toolTipRef.current!.style.visibility = "hidden"
             }
             chatRef.current!.addEventListener("mouseover",handleMouseOver)
             chatRef.current!.addEventListener("mouseleave",handleMouseLeave)
 
-            containerRef.current?.addEventListener("scroll", updatePosition);
-            window.addEventListener("resize", updatePosition);
+            const handleScroll = ()=>{
+                if(toolTipRef.current!.style.visibility === "visible"){
+                    updatePosition()
+                }
+            }
+
+            containerRef.current?.addEventListener("scroll", handleScroll);
+            // window.addEventListener("resize", updatePosition);
     
             return () => {
                 containerRef.current?.removeEventListener("scroll", updatePosition);
-                window.removeEventListener("resize", updatePosition);
+                // window.removeEventListener("resize", updatePosition);
                 chatRef.current!.removeEventListener("mouseover",handleMouseOver)
                 chatRef.current!.removeEventListener("mouseleave",handleMouseLeave)
             };
