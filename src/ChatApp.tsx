@@ -1,10 +1,10 @@
-import Conversation from './Conversation/Conversation';
-import { useReducer, useState} from 'react';
+import { useReducer, useState, lazy, Suspense} from 'react';
 import { CurrentConvoIdContext, DispatchCurrentConvoIdContext} from './context';
 import LeftPane from './Previews/LeftPane';
 import { AllConversations, setAllConversations, DispatchAllConversations } from './context';
 import { MyConversationsList,DispatchMyConversationsist, setMyConversationsList } from "./context";
-
+import Loader from './Loader';
+const Conversation = lazy(()=>import("./Conversation/Conversation"))
 
 interface ChatAppProps{
     className:string
@@ -26,7 +26,9 @@ export default function ChatApp({className}:ChatAppProps){
                     <LeftPane className="w-1/4 h-screen bg-[#075E54] min-w-80"/>
                     {currentConvoId ? 
                         <DispatchAllConversations.Provider value={dispatchAllConversations}>
-                            <Conversation key={currentConvoId} className='w-3/4 h-screen bg-opacity-95 ' /> 
+                            <Suspense fallback = {<Loader className = "w-3/4 h-scree "/>}>
+                                <Conversation key={currentConvoId} className='w-3/4 h-screen' /> 
+                            </Suspense>
                         </DispatchAllConversations.Provider>
                         : null
                     }

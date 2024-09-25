@@ -1,5 +1,4 @@
 import { useMemo, } from "react";
-// const Message  = lazy(()=> import("./Message"))
 import Message from "./Message"
 import { CurrentConvoIdContext, AllConversations } from "../context";
 import { useContext } from "react";
