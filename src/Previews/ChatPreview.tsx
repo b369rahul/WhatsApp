@@ -16,7 +16,6 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
     const dispatchMyConversationsList  = useContext(DispatchMyConversationsist)
     const setCurrentConvoId = useContext(DispatchCurrentConvoIdContext)
     const currentConvoId = useContext(CurrentConvoIdContext)
-    console.log("sss")
 
     const [isDeleteChatVisisble, setIsDeleteChatVisible] = useState(false)
     const chatRef = useRef<HTMLDivElement | null>(null)
@@ -70,9 +69,9 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
             chatRef.current!.addEventListener("mouseleave",handleMouseLeave)
 
             const handleScroll = ()=>{
-                if(toolTipRef.current!.style.visibility === "visible"){
-                    updatePosition()
-                }
+                // if(toolTipRef.current!.style.visibility === "visible"){
+                //     updatePosition()
+                // }
             }
 
             containerRef.current?.addEventListener("scroll", handleScroll);

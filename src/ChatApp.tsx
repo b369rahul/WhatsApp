@@ -26,7 +26,7 @@ export default function ChatApp({className}:ChatAppProps){
                     <LeftPane className="w-1/4 h-screen bg-[#075E54] min-w-80"/>
                     {currentConvoId ? 
                         <DispatchAllConversations.Provider value={dispatchAllConversations}>
-                            <Suspense fallback = {<Loader className = "w-3/4 h-scree "/>}>
+                            <Suspense fallback = {<Loader className = "w-3/4 h-screen "/>}>
                                 <Conversation key={currentConvoId} className='w-3/4 h-screen' /> 
                             </Suspense>
                         </DispatchAllConversations.Provider>
