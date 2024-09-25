@@ -1,6 +1,6 @@
-import { useMemo, } from "react";
-// const Message  = lazy(()=> import("./Message"))
-import Message from "./Message"
+import { useMemo, lazy, Suspense } from "react";
+const Message  = lazy(()=> import("./Message"))
+// import Message from "./Message"
 import { CurrentConvoIdContext, AllConversations } from "../context";
 import { useContext } from "react";
 
@@ -24,11 +24,12 @@ export default function AllMessage({}:AllMessageProps){
                 memoMessages.map((_,index)=>{
                     let msg:Message= memoMessages[memoMessages.length-1-index]
                     return (
+                        <Suspense key={msg.id}  fallback="">
                         <Message 
-                        key={msg.id} 
                         message={msg}
                         isLastMessage={index===0}
                         />
+                        </Suspense>
                     )
                 })
             }
