@@ -17,10 +17,10 @@ export default function PopUpForm({className = '', children}: PopUpFormProps) {
         // const lastFocusableEl = focusableEls[focusableEls.length - 1];
         let i=-1;
         function handleFocusShift (e:any){
-            e.preventDefault()
             if (e.key !== 'Tab') { 
                 return; 
             }
+            e.preventDefault()
 
             if ( e.shiftKey ){      /* shift + tab */ 
                 // if (document.activeElement === firstFocusableEl) {

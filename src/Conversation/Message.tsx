@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, memo } from "react";
 import "./Message.css"
 import PopUpForm from "../Popups/PopUpForm";
 import MessageDeleteForm from "../Popups/MessageDeleteForm";
@@ -13,7 +13,7 @@ interface MessageProps {
 }
 
 
-export default function Message({ message,isLastMessage}: MessageProps) {
+const Message = memo(({ message,isLastMessage}: MessageProps)=> {
     const ref= useRef<HTMLDivElement>(null)
     const dispatchAllConversations = useContext(DispatchAllConversations)
     const currentConversationId = useContext(CurrentConvoIdContext)
@@ -76,4 +76,6 @@ export default function Message({ message,isLastMessage}: MessageProps) {
                 </div>
             </div>
     );
-}
+})
+
+export default Message;
