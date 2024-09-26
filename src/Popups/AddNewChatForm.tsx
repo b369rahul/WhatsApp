@@ -28,23 +28,23 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
     return (
             <form onSubmit={handleOnSubmit} className={className}>
 
-                <label className="block text-sm font-medium text-[#8696A0]">Name</label>
+                <label className="block text-sm font-medium">Name</label>
                 <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter name"
-                    className="w-full p-2 bg-[#2A3942] border-none rounded-md text-[#E9EDEF] focus:outline-none focus:ring-2 focus:ring-[#00A884]"
+                    className="w-full p-2  border-none rounded-md  focus:outline-none focus:ring-2 focus:ring-[#00A884]"
                     required
                 />
 
-                <label className="block text-sm font-medium text-[#8696A0]">Profile Image</label>
+                <label className="block text-sm font-medium ">Profile Image</label>
                 <input
                     type="text"
                     value={profileImg}
                     onChange={(e) => setProfileImg(e.target.value)}
                     placeholder="Enter image URL"
-                    className="w-full p-2 bg-[#2A3942] border-none rounded-md text-[#E9EDEF] focus:outline-none focus:ring-2 focus:ring-[#00A884]"
+                    className="w-full p-2  border-none rounded-md  focus:outline-none focus:ring-2 focus:ring-[#00A884]"
                 />
 
                 {profileImg && <img src={profileImg} alt="Profile Preview" className="h-16 w-16 rounded-full mt-2 object-cover border-2 border-[#00A884]" />}
@@ -53,13 +53,13 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
                     <button
                         type="button"
                         onClick={handleClose}
-                        className="w-1/2 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-400">
+                        className="w-1/2 bg-gray-600  px-4 py-2 rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-400">
                         Cancel
                     </button>
                     <button
                         type="submit"
                         onClick={(e)=>e.stopPropagation()}
-                        className="w-1/2 bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-400">
+                        className="w-1/2 bg-orange-600  px-4 py-2 rounded-md hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-400">
                         Add Chat
                     </button>
                 </div>

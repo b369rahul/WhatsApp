@@ -28,7 +28,7 @@ export default function MessageEditForm({ setIsEditMessageVisible, editMessage, 
             <textarea 
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full h-32 p-2 bg-[#2A3942] text-[#E9EDEF] border-none rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-[#00A884]"
+                className="w-full h-32 p-2  border-none rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-[#00A884]"
                 placeholder="Edit your message here..."
                 rows={4}
             />

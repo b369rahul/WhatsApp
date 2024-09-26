@@ -1,19 +1,19 @@
-import { useContext, useRef, useState, useMemo, useCallback } from "react";
-import SearchBar from "./SearchBar";
-import { MyConversationsList , AllConversations} from "../context";
+import { useContext, useMemo, useCallback } from "react";
+import { MyConversationsList , AllConversations, CurrentConvoIdContext} from "../context";
 import ChatPreview from "./ChatPreview";
 
 interface ConversationListProps{
-    
+    className?:string,
+    searchText?:string,
+    containerRef?:React.RefObject<HTMLDivElement>
 }
 
 
 
-export default function ConversationList ({}:ConversationListProps){
+export default function ConversationList ({className="", searchText="", containerRef}:ConversationListProps){
     const myConversationsList = useContext(MyConversationsList)
     const allConversations = useContext(AllConversations)
 
-    const [searchText,setSearchText] = useState('');
     const filteredConversations = useMemo(()=>{
         return (
             myConversationsList.filter(({user})=>{
@@ -38,28 +38,29 @@ export default function ConversationList ({}:ConversationListProps){
     },[allConversations,filteredConversations])
 
     const MessageList = useCallback(()=>{
+        const currentConvoId = useContext(CurrentConvoIdContext)
+
         return (
-            <div ref={containerRef} className="z-5 overflow-y-auto h-full bg-[#1e2428]">
-                <ul className="divide-y divide-[#242d32]">
-                    {filteredConversationsWithLastMesssages.map(({conversationId ,user, lastMessage}) => (
-                        <ChatPreview 
+            <div className={`${className}`}>
+                <ul className="">
+                    {filteredConversationsWithLastMesssages.map(({conversationId ,user, lastMessage}) => {
+                        const className = currentConvoId===conversationId ? "bg-[#4590f0] hover:bg-[#4590f0] text-white hover:no":"text-[#4590ff] hover:bg-[#ffffff]" 
+                        return (<ChatPreview 
                             key={conversationId}
                             conversationId ={conversationId}
                             lastMessage={lastMessage}
                             user={user}
-                            className="hover:bg-[#303b42] transition-colors duration-200 w-full" 
+                            className={" transition-colors duration-200 w-full " + className }
                             containerRef={containerRef}
-                        />
-                    ))}
+                        />)
+                    })}
                 </ul>
             </div>
         )
     },[filteredConversationsWithLastMesssages])
     
-    const containerRef = useRef(null)
     return (
         <>
-            <SearchBar searchText={searchText} setSearchText={setSearchText} className="w-full p-4 bg-[#1e2428] border-b-[0.5px] border-[#242d32]"/>
             <MessageList/>
         </>
     );

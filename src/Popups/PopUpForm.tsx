@@ -54,7 +54,7 @@ export default function PopUpForm({className = '', children}: PopUpFormProps) {
         let val = Children.map(children, child => {
                 return React.cloneElement(
                     child as JSX.Element, 
-                    {className:"z-10 space-y-4 flex flex-col border-2 border-[#2A3942] w-80 items-center rounded-lg p-6 bg-[#1F2C34] relative shadow-lg"}
+                    {className:"z-10 text-black space-y-4 flex flex-col bg-[#4590f0] border-2 border-[#2A3942] w-80 items-center rounded-lg p-6 relative shadow-lg"}
                 )
         })
         return val? val : <>{null}</>
@@ -62,7 +62,7 @@ export default function PopUpForm({className = '', children}: PopUpFormProps) {
     
     return (
         <div className={"z-10 w-screen h-screen fixed top-0 left-0 flex justify-center items-center " + className}>
-            <div className="z-2 absolute w-full h-full bg-[#075E54] bg-opacity-50"></div>
+            <div className="z-2 absolute w-full h-full bg-opacity-50"></div>
             <div ref={ref}>
                 {formatedChild()}
             </div>

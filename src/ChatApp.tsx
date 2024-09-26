@@ -23,11 +23,11 @@ export default function ChatApp({className}:ChatAppProps){
             <CurrentConvoIdContext.Provider value={currentConvoId}>
             <DispatchCurrentConvoIdContext.Provider value = {setCurrentConvoId}>
             <AllConversations.Provider value={allConversations}>
-                    <LeftPane className="w-1/4 h-screen bg-[#075E54] min-w-80"/>
+                    <LeftPane className="w-1/4 h-screen bg-[#cfece8] min-w-80 border-x-[#4590f0] border-l-2"/>
                     {currentConvoId ? 
                         <DispatchAllConversations.Provider value={dispatchAllConversations}>
                             <Suspense fallback = {<Loader className = "w-3/4 h-screen "/>}>
-                                <Conversation key={currentConvoId} className='w-3/4 h-screen' /> 
+                                <Conversation key={currentConvoId} className='w-3/4 h-screen bg-[#cfece8]' /> 
                             </Suspense>
                         </DispatchAllConversations.Provider>
                         : null

@@ -7,7 +7,7 @@ import { DispatchMyConversationsist, DispatchCurrentConvoIdContext, CurrentConvo
 interface ChatPreviewProps{
     className:string
     lastMessage:string | null,
-    containerRef:React.RefObject<HTMLDivElement> | null
+    containerRef:React.RefObject<HTMLDivElement> | undefined
     user:User,
     conversationId:NonNullable<ConversationId>
 }
@@ -54,7 +54,7 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
                 setToolTipPosition({top:top, left:left})
             }
 
-            let timeOutId:number | undefined;
+            let timeOutId:any;
             const handleMouseOver = ()=>{
                 timeOutId = setTimeout(()=>{
                     updatePosition()
@@ -86,6 +86,7 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
         }
     },[lastMessage])
 
+
     return (
     <li>
         <div className={`flex items-center justify-between flex-row hover:cursor-pointer px-2 ${className}`} onClick={setCurrentPersonId}>
@@ -99,7 +100,7 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
                         </p>
                     </div>
                     {
-                        <div ref={toolTipRef} className={`z-10 invisible fixed bg-[#1e2428] ml-2 rounded-md text-white px-2 py-2 max-w-[40%] w-fit break-words `}
+                        <div ref={toolTipRef} className={`z-10 invisible fixed bg-blue-950 ml-2 rounded-md text-white px-2 py-2 max-w-[40%] w-fit break-words `}
                                                         style={{top:toolTipPosition.top, left:toolTipPosition.left}}>
                                 {lastMessage}
                         </div> 
