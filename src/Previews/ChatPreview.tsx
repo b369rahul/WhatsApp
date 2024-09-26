@@ -59,7 +59,7 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
                 timeOutId = setTimeout(()=>{
                     updatePosition()
                     toolTipRef.current!.style.visibility = "visible"
-                },2000)
+                },1500)
             }
             const handleMouseLeave = ()=>{
                 clearTimeout(timeOutId)
@@ -69,9 +69,9 @@ const ChatPreview = ({className, containerRef, lastMessage, user, conversationId
             chatRef.current!.addEventListener("mouseleave",handleMouseLeave)
 
             const handleScroll = ()=>{
-                // if(toolTipRef.current!.style.visibility === "visible"){
-                //     updatePosition()
-                // }
+                if(toolTipRef.current!.style.visibility === "visible"){
+                    updatePosition()
+                }
             }
 
             containerRef.current?.addEventListener("scroll", handleScroll);
