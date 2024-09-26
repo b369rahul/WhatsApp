@@ -19,7 +19,7 @@ const SearchBar= memo(({ className="", children}: SearchBarProps) => {
             type="search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full pl-10  h-full p-2 rounded-md  focus:outline-gray-400"
+            className="w-full pl-10  h-full p-2 rounded-md text-black  focus:outline-gray-400"
             placeholder="Search ...."
           />
         </div>
