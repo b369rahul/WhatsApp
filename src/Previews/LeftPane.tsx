@@ -4,9 +4,9 @@ import ConversationList from "./ConversationList";
 import SearchBar from "./SearchBar";
 
 interface LeftPaneProps{
-    className:string;
+    className?:string;
 }
-export default function LeftPane({className}:LeftPaneProps){
+export default function LeftPane({className=""}:LeftPaneProps){
 
     return (
         <div className={`flex flex-col ${className}`}>

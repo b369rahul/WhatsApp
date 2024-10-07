@@ -7,10 +7,10 @@ import Loader from './Loader';
 const Conversation = lazy(()=>import("./Conversation/Conversation"))
 
 interface ChatAppProps{
-    className:string
+    className?:string
 }
 
-export default function ChatApp({className}:ChatAppProps){
+export default function ChatApp({className=""}:ChatAppProps){
 
     const [currentConvoId, setCurrentConvoId] = useState<ConversationId>(null)
     const [allConversations, dispatchAllConversations] = useReducer(setAllConversations, JSON.parse(localStorage.getItem("allConversations") || "{}" ))

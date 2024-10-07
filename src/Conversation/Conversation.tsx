@@ -3,7 +3,7 @@ import AllMessage from "./AllMessage";
 import ChatProfile from "./ChatProfile";
 
 interface ConversationProps{
-    className:string,
+    className?:string,
 }
 
 export default function Conversation({className=" "}:ConversationProps){

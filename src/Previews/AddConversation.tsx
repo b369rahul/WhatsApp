@@ -10,7 +10,7 @@ export default function AddConversation (){
 
     return (
         <div className="relative flex flex-row h-full items-center">
-                <IoIosPersonAdd className="h-6 w-6 m-2 hover:cursor-pointer" onClick={()=>setIsVisible(true)}/>
+                <IoIosPersonAdd className="h-6 w-6 m-2 hover:cursor-pointer" onClick={()=>setIsVisible(true)} aria-label="addNewUser"/>
                 
                 {isVisible && 
                     <PopUpForm>

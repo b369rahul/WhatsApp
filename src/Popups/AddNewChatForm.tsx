@@ -24,7 +24,10 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
     const handleClose = () => {
         setIsVisible(false); 
     }
-
+    const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>)=>{
+        if(e.key==='Enter')e.preventDefault()
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+    }
     return (
             <form onSubmit={handleOnSubmit} className={className}>
 
@@ -35,6 +38,7 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter name"
                     className="w-full p-2  border-none rounded-md  focus:outline-none focus:ring-2 focus:ring-[#00A884]"
+                    onKeyDown={handleKeyDown}
                     required
                 />
 
@@ -44,6 +48,7 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
                     value={profileImg}
                     onChange={(e) => setProfileImg(e.target.value)}
                     placeholder="Enter image URL"
+                    onKeyDown={handleKeyDown}
                     className="w-full p-2  border-none rounded-md  focus:outline-none focus:ring-2 focus:ring-[#00A884]"
                 />
 
