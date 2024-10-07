@@ -25,8 +25,10 @@ export default function AddNewChatForm({ setIsVisible, className }: AddNewChatFo
         setIsVisible(false); 
     }
     const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>)=>{
-        if(e.key==='Enter')e.preventDefault()
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+        if(e.key==='Enter'){
+            e.preventDefault()
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+        }
     }
     return (
             <form onSubmit={handleOnSubmit} className={className}>
