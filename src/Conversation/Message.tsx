@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { useContext, useEffect, useRef, useState, memo } from "react";
+import { useContext, useLayoutEffect, useRef, useState, memo } from "react";
 import "./Message.css"
 import PopUpForm from "../Popups/PopUpForm";
 import MessageDeleteForm from "../Popups/MessageDeleteForm";
@@ -40,7 +40,7 @@ const Message = memo(({ message,isLastMessage}: MessageProps)=> {
         })
     }
     
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if(isLastMessage && ref.current){
             ref.current.scrollIntoView();
         }
